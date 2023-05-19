@@ -88,3 +88,67 @@ BEGIN
   SET @result = 'OK';
 END;
 ```
+
+### Procedure para remover Pessoa
+
+```sql
+CREATE PROCEDURE RemoverPessoa
+(
+  @idPessoa INT,
+  @result VARCHAR(2) OUTPUT
+)
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  DELETE FROM Pessoas
+  WHERE idPessoa = @idPessoa;
+
+  SET @result = 'OK';
+END;
+```
+### Procedure para listar todos os registros da tabela 'Pessoa'
+
+```sql
+CREATE PROCEDURE SelecionarTodasPessoas
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  SELECT * FROM Pessoas;
+END;
+```
+### Procedure para obter um registro por Id da pessoa
+
+```sql
+CREATE PROCEDURE ObterPessoaPorId
+(
+  @idPessoa INT
+)
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  SELECT * FROM Pessoas WHERE idPessoa = @idPessoa;
+END;
+```
+### Inserção de dados na tabela de Pessoas através da procedure 
+
+```sql
+DECLARE @outputIdPessoa INT;
+EXEC InserirPessoa 'objetivo de teste', 'Oscar Ramires', '2000-01-01', 1000.00, 'Observações Exemplo', @outputIdPessoa OUTPUT;
+SELECT @outputIdPessoa AS 'idPessoa';
+```
+### Atualização de dados na tabela de Pessoas através da procedure 
+```sql
+DECLARE @outputResult VARCHAR(2);
+EXEC AtualizarPessoa 1, 'Novo Objetivo', 'Novo Nome', '2000-01-01', 2000.00, 'Novas Observações', @outputResult OUTPUT;
+SELECT @outputResult AS 'Result';
+```
+### Remoção de dados na tabela de Pessoas através da procedure 
+```sql
+DECLARE @outputResult VARCHAR(2);
+EXEC RemoverPessoa 1, @outputResult OUTPUT;
+SELECT @outputResult AS 'Result';
+```
+
