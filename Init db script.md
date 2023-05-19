@@ -152,3 +152,15 @@ EXEC RemoverPessoa 1, @outputResult OUTPUT;
 SELECT @outputResult AS 'Result';
 ```
 
+### Selecionando registros na tabela de Pessoas através da procedure
+
+```sql
+EXEC SelecionarTodasPessoas;
+```
+
+### Selecionando um registro na tabela de Pessoas através da procedure
+
+```sql
+EXEC ObterPessoaPorId 1;
+```
+
