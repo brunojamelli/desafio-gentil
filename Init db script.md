@@ -22,9 +22,7 @@ CREATE TABLE Pessoas (
 
 ```sql
 ALTER TABLE Pessoas
-ADD nomeMae VARCHAR(255),
-    nomePai VARCHAR(255),
-    cpf VARCHAR(11);
+ADD nomeMae VARCHAR(255), nomePai VARCHAR(255), cpf VARCHAR(11);
 ```
 ### Adição de indices para buscas mais rápidas
 
