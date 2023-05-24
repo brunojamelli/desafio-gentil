@@ -1,4 +1,4 @@
-# Script Criação de banco de dados
+# Script Criação de banco de dados para SQLServer
 ## Desafio A - Banco de Dados
 Script de desafio criação do banco de dados do desafio para vaga de desenvolvedor da gentil negocios.
 
