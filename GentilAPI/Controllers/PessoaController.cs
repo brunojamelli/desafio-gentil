@@ -13,7 +13,9 @@ public class PessoasController : ControllerBase
         public PessoasController()
         {
             // Substitua o valor de _connectionString pelo seu próprio connection string do SQL Server
-            _connectionString = "Data Source=localhost;Initial Catalog=gentil_db;User ID=DESKTOP-QQVBDLB\bruno;Password=";
+            //_connectionString = "Data Source=localhost;Initial Catalog=gentil_db;User ID=DESKTOP-QQVBDLB\bruno;Password=";
+            _connectionString = "Data Source=DESKTOP-QQVBDLB/SQLEXPRESS;Initial Catalog=gentil_db;Integrated Security=True";
+
         }
 
         [HttpGet]
@@ -25,7 +27,7 @@ public class PessoasController : ControllerBase
                 {
                     connection.Open();
 
-                    using (SqlCommand command = new SqlCommand("NomeDaSuaProcedure", connection))
+                    using (SqlCommand command = new SqlCommand("SelecionarTodasPessoas", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
 
