@@ -32,6 +32,18 @@ ALTER TABLE Pessoas ADD cpf VARCHAR(11);
 CREATE INDEX idx_nome ON Pessoas (nome);
 CREATE INDEX idx_dataNascimento ON Pessoas (dataNascimento);
 ```
+
+### Deixando o atributo idPessoa como autoincremento
+- Crie uma nova sequência (sequence) no PostgreSQL:
+```sql
+CREATE SEQUENCE idPessoa_seq;
+```
+- 
+```sql
+```
+- 
+```sql
+```
 ### Alteração do atributo cpf indice/chave única
 
 ```sql
@@ -62,74 +74,66 @@ $$;
 
 ```
 
-## Procedure para atualizar Pessoa
+### Procedure para atualizar Pessoa
 ```sql
-CREATE PROCEDURE AtualizarPessoa
-(
-  @idPessoa INT,
-  @Objetivo VARCHAR(255),
-  @nome VARCHAR(255),
-  @dataNascimento DATE,
-  @salario DECIMAL(10, 2),
-  @observacoes TEXT,
-  @result VARCHAR(2) OUTPUT
+CREATE OR REPLACE PROCEDURE atualizar_pessoa(
+  in_id_pessoa INTEGER,
+  in_objetivo VARCHAR(255),
+  in_nome VARCHAR(255),
+  in_data_nascimento DATE,
+  in_salario NUMERIC,
+  in_observacoes TEXT,
+  in_nome_mae VARCHAR(255),
+  in_nome_pai VARCHAR(255),
+  in_cpf VARCHAR(11),
+  OUT out_resultado VARCHAR(2)
 )
-AS
+LANGUAGE plpgsql
+AS $$
 BEGIN
-  SET NOCOUNT ON;
-
   UPDATE Pessoas
-  SET Objetivo = @Objetivo,
-      nome = @nome,
-      dataNascimento = @dataNascimento,
-      salario = @salario,
-      observacoes = @observacoes
-  WHERE idPessoa = @idPessoa;
-
-  SET @result = 'OK';
+  SET
+    Objetivo = in_objetivo,
+    nome = in_nome,
+    dataNascimento = in_data_nascimento,
+    salario = in_salario,
+    observacoes = in_observacoes,
+    nomeMae = in_nome_mae,
+    nomePai = in_nome_pai,
+    cpf = in_cpf
+  WHERE idPessoa = in_id_pessoa;
+  
+  out_resultado := 'OK';
 END;
+$$;
+
 ```
 
 ### Procedure para remover Pessoa
 
 ```sql
-CREATE PROCEDURE RemoverPessoa
-(
-  @idPessoa INT,
-  @result VARCHAR(2) OUTPUT
+CREATE OR REPLACE PROCEDURE remover_pessoa(
+  in_id_pessoa INTEGER,
+  OUT out_resultado VARCHAR(2)
 )
-AS
+LANGUAGE plpgsql
+AS $$
 BEGIN
-  SET NOCOUNT ON;
-
   DELETE FROM Pessoas
-  WHERE idPessoa = @idPessoa;
-
-  SET @result = 'OK';
+  WHERE idPessoa = in_id_pessoa;
+  
+  out_resultado := 'OK';
 END;
+$$;
+
 ```
 ### Procedure para listar todos os registros da tabela 'Pessoa'
 
 ```sql
-CREATE PROCEDURE SelecionarTodasPessoas
-AS
-BEGIN
-  SET NOCOUNT ON;
 
-  SELECT * FROM Pessoas;
-END;
 ```
 ### Procedure para obter um registro por Id da pessoa
 
 ```sql
-CREATE PROCEDURE ObterPessoaPorId
-(
-  @idPessoa INT
-)
-AS
-BEGIN
-  SET NOCOUNT ON;
 
-  SELECT * FROM Pessoas WHERE idPessoa = @idPessoa;
-END;
 ```
