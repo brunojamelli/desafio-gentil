@@ -61,3 +61,75 @@ END;
 $$;
 
 ```
+
+## Procedure para atualizar Pessoa
+```sql
+CREATE PROCEDURE AtualizarPessoa
+(
+  @idPessoa INT,
+  @Objetivo VARCHAR(255),
+  @nome VARCHAR(255),
+  @dataNascimento DATE,
+  @salario DECIMAL(10, 2),
+  @observacoes TEXT,
+  @result VARCHAR(2) OUTPUT
+)
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  UPDATE Pessoas
+  SET Objetivo = @Objetivo,
+      nome = @nome,
+      dataNascimento = @dataNascimento,
+      salario = @salario,
+      observacoes = @observacoes
+  WHERE idPessoa = @idPessoa;
+
+  SET @result = 'OK';
+END;
+```
+
+### Procedure para remover Pessoa
+
+```sql
+CREATE PROCEDURE RemoverPessoa
+(
+  @idPessoa INT,
+  @result VARCHAR(2) OUTPUT
+)
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  DELETE FROM Pessoas
+  WHERE idPessoa = @idPessoa;
+
+  SET @result = 'OK';
+END;
+```
+### Procedure para listar todos os registros da tabela 'Pessoa'
+
+```sql
+CREATE PROCEDURE SelecionarTodasPessoas
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  SELECT * FROM Pessoas;
+END;
+```
+### Procedure para obter um registro por Id da pessoa
+
+```sql
+CREATE PROCEDURE ObterPessoaPorId
+(
+  @idPessoa INT
+)
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  SELECT * FROM Pessoas WHERE idPessoa = @idPessoa;
+END;
+```
