@@ -51,7 +51,7 @@ def criar_pessoa():
 # Rota para obter todos os registros da tabela Pessoas
 
 
-@app.route('/pessoas2', methods=['GET'])
+@app.route('/pessoas', methods=['GET'])
 def get_pessoas():
     conn, cur = db_connect()
     #cur = conn.cursor()
@@ -79,34 +79,6 @@ def get_pessoas():
     conn.close()
 
     return jsonify(pessoas)
-# Rota para selecionar todos os registros da tabela Pessoas
-@app.route('/pessoas', methods=['GET'])
-def selecionar_pessoas():
-    conn, cur = db_connect()
-
-    try:
-        cur = conn.cursor()
-
-        # Chamar a procedure de seleção de pessoas
-        cur.callproc('CALL selecionar_todas_pessoas')
-
-        # Recuperar os resultados da procedure
-        resultados = cur.fetchall()
-
-        # Imprimir os dados no console
-        for resultado in resultados:
-            print(resultado)
-
-        cur.close()
-        conn.commit()
-        return "Registros selecionados com sucesso"
-
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-        return "Erro ao selecionar registros"
-
-    finally:
-        conn.close()
 
 @app.route('/pessoas/<int:id>', methods=['DELETE'])
 def remover_pessoa(id):
