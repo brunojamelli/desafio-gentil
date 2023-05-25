@@ -217,7 +217,7 @@ BEGIN
 END;
 $$;
 ```
-### selecionando um registro na tabela de Pessoas através da procedure
+### Selecionando um registro na tabela de Pessoas através da procedure
 ```sql
 DO $$
 DECLARE
